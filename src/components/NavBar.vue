@@ -1,0 +1,12 @@
+<template>
+  <div>
+    <nav>
+      <router-link to="/estudiante">Estudiante</router-link>|
+      <router-link to="/holamundo">Hola Mundo</router-link>|
+      <router-link to="/contador/numeros">Contador</router-link>|
+      <router-link to="/perrito">Perrito</router-link>|
+      <router-link to="/vehiculo">Vehiculo</router-link>|
+      <router-link to="/taller/pregunta">Pregunta</router-link>|
+    </nav>
+  </div>
+</template>

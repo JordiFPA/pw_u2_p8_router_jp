@@ -1,20 +1,54 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import EstudianteView from "../views/EstudianteView.vue";
+import HolaMundoView from '../views/HolaMundoView.vue';
+import VehiculoView from "../views/VehiculoView.vue";
 
-const routes = [
+const routes = [ //Arreglo de rutas, donde cada una es un objeto, con 3 atribut 
   {
     path: '/',
     name: 'home',
     component: HomeView
   },
+
+  {
+    path: '/estudiante/:cedula',
+    name: 'estudianteView',
+    component: EstudianteView
+  },
+  {
+    path: '/holamundo',
+    name: 'holamundoView',
+    component: HolaMundoView
+  },
+  {
+    path: '/vehiculo',
+    name: 'vehiculoView',
+    component: VehiculoView
+  },
+
+
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+  },
+
+  {
+    path: '/contador/numeros',
+    name: 'contadorView',
+    component: () => import(/* webpackChunkName: "ContadorView" */ '../views/ContadorView.vue')
+  },
+  {
+    path: '/perrito',
+    name: 'perritoView',
+    component: () => import(/* webpackChunkName: "Perrito" */ '../views/PerritoView.vue')
+  }, 
+   {
+    path: '/taller/pregunta',
+    name: 'preguntaView',
+    component: () => import(/* webpackChunkName: "Perrito" */ '../views/PreguntaView.vue')
+  },
 ]
 
 const router = createRouter({
