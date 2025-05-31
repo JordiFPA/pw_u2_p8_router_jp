@@ -3,30 +3,31 @@
     <h1>Formulario de carros</h1>
     <div class="formulario">
       <div v-show="mostrar">
-        <h2>Auto Agregado Correctamente</h2>
-      </div>
-      <div v-show="completo">
-        <h2 id="alerta">Complete todos los campos</h2>
-        
+        <h2>{{mensajeFinal}}</h2>
       </div>
 
       <p type="Modelo">
-        <input type="text" name="" id="id_modelo" v-model="nuevoModelo" />
+        <input type="text" name id="id_modelo" v-model="nuevoModelo" />
       </p>
+      <span v-if="mensaje.modeloMensaje">El modelo es obligatorio</span>
       <p type="Marca">
-        <input type="text" name="" id="id_marca" v-model="nuevaMarca" />
+        <input type="text" name id="id_marca" v-model="nuevaMarca" />
       </p>
+      <span v-if="mensaje.marcaMensaje">La marca es obligatoria</span>
       <p type="Color">
-        <input type="text" name="" id="id_color" v-model="nuevoColor" />
+        <input type="text" name id="id_color" v-model="nuevoColor" />
       </p>
+      <span v-if="mensaje.colorMensaje">El color es obligatorio</span>
       <p type="Tipo">
-        <input type="text" name="" id="id_Tipo" v-model="nuevoTipo" />
+        <input type="text" name id="id_Tipo" v-model="nuevoTipo" />
       </p>
+      <span v-if="mensaje.tipoMensaje">El tipo es obligatorio</span>
       <p type="Placa">
-        <input type="text" name="" id="id_Placa" v-model="nuevaPlaca" />
+        <input type="text" name id="id_Placa" v-model="nuevaPlaca" />
       </p>
+      <span v-if="mensaje.placaMensaje">La placa es obligatoria</span>
       <div class="centrarBoton">
-        <button v-on:click="agregarVehiculo(), limpiar()">Agregar</button>
+        <button v-on:click="agregarVehiculo()">Agregar</button>
       </div>
     </div>
 
@@ -40,10 +41,7 @@
           <th>Placa</th>
         </thead>
         <tbody>
-          <tr
-            v-for="{ modelo, marca, color, tipo, placa } in lista"
-            :key="modelo"
-          >
+          <tr v-for="{ modelo, marca, color, tipo, placa } in lista" :key="modelo">
             <td>{{ modelo }}</td>
             <td>{{ marca }}</td>
             <td>{{ color }}</td>
@@ -60,53 +58,59 @@
 export default {
   data() {
     return {
-      nuevoModelo: "",
-      nuevaMarca: "",
-      nuevoColor: "",
-      nuevoTipo: "",
-      nuevaPlaca: "",
+      nuevoModelo: null,
+      nuevaMarca: null,
+      nuevoColor: null,
+      nuevoTipo: null,
+      nuevaPlaca: null,
+      validarModelo: false,
+      validarMarca: false,
+      mensajeFinal: "",
+      mensaje: {
+        modeloMensaje: null,
+        marcaMensaje: null,
+        colorMensaje: null,
+        tipoMensaje: null,
+        placaMensaje: null
+      },
+
       lista: [
         {
           modelo: "CX3",
           marca: "Mazda",
           color: "Plomo",
           tipo: "Sedan",
-          placa: "Pda-3698s",
-        },
+          placa: "Pda-3698s"
+        }
       ],
       mostrar: false,
-      completo: false,
+      completo: false
     };
   },
   methods: {
     agregarVehiculo() {
-      if (
-        this.nuevoModelo === "" ||
-        this.nuevaMarca === "" ||
-        this.nuevoColor === "" ||
-        this.nuevoTipo === "" ||
-        this.nuevaPlaca === ""
-      ) {
-        this.completo= true;
+      if (this.validarEntradas() == true) {
+        this.completo = true;
         setTimeout(() => {
-        this.completo = false;
-       
-      }, 2000);
-        return;
+          this.completo = false;
+        }, 2000);
+
+        const nuevoVehiculo = {
+          modelo: this.nuevoModelo,
+          marca: this.nuevaMarca,
+          color: this.nuevoColor,
+          tipo: this.nuevoTipo,
+          placa: this.nuevaPlaca
+        };
+        this.lista.push(nuevoVehiculo);
+        this.mostrar = true;
+        setTimeout(() => {
+          this.mostrar = false;
+        }, 2000);
+        this.limpiar();
+        this.mostrar = true;
+        this.mensajeFinal = "Vehículo agregado correctamente";
       }
-      const nuevoVehiculo = {
-        modelo: this.nuevoModelo,
-        marca: this.nuevaMarca,
-        color: this.nuevoColor,
-        tipo: this.nuevoTipo,
-        placa: this.nuevaPlaca,
-      };
-      this.lista.push(nuevoVehiculo);
-      this.mostrar = true;
-      setTimeout(() => {
-        this.mostrar = false;
-       
-      }, 2000);
     },
     limpiar() {
       this.nuevoModelo = "";
@@ -114,8 +118,58 @@ export default {
       this.nuevoColor = "";
       this.nuevoTipo = "";
       this.nuevaPlaca = "";
+      this.mensaje.modeloMensaje = null;
+      this.mensaje.marcaMensaje = null;
+      this.mensaje.colorMensaje = null;
+      this.mensaje.tipoMensaje = null;
+      this.mensaje.placaMensaje = null;
     },
-  },
+
+    validarEntradas() {
+      try {
+        let numero = 5;
+        if (!this.nuevoModelo) {
+          this.mensaje.modeloMensaje = "El modelo es obligatorio";
+          numero--;
+        } else {
+          this.mensaje.modeloMensaje = null;
+        }
+        if (!this.nuevaMarca) {
+          this.mensaje.marcaMensaje = "La marca es obligatoria";
+          numero--;
+        } else {
+          this.mensaje.marcaMensaje = null;
+        }
+        if (!this.nuevoColor) {
+          this.mensaje.colorMensaje = "El color es obligatorio";
+          numero--;
+        } else {
+          this.mensaje.colorMensaje = null;
+        }
+        if (!this.nuevoTipo) {
+          this.mensaje.tipoMensaje = "El tipo es obligatorio";
+          numero--;
+        } else {
+          this.mensaje.tipoMensaje = null;
+        }
+        if (!this.nuevaPlaca) {
+          this.mensaje.placaMensaje = "La placa es obligatoria";
+          numero--;
+        } else {
+          this.mensaje.placaMensaje = null;
+        }
+        if (numero === 5) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (error) {
+        this.mostrar = true;
+        this.mensajeFinal = "Error al agregar el vehículo: " + error.message;
+        return false;
+      }
+    }
+  }
 };
 </script>
 
@@ -210,7 +264,7 @@ td {
   font-size: 30px;
   text-align: center;
   border-radius: 10 px;
-} 
+}
 #alerta {
   color: red;
   text-align: center;
