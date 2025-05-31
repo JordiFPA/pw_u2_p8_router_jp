@@ -103,13 +103,39 @@ export default {
       //this.lista.unshift(nuevo);
       this.lista.push(nuevo);
     },
-    obtenerPathVariable(){ 
+    obtenerPathVariable() {
       const cedula = this.$route.params.cedula;
-      console.log( cedula);
-      const anio  = this.$route.query.anio; 
-      const mes = this.$route.query.mes; 
+      console.log(cedula);
+      const anio = this.$route.query.anio;
+      const mes = this.$route.query.mes;
       console.log(anio, mes);
     }
+  },
+  beforeCreate() {
+    //Se declara como si fuera un metodo
+    console.log("beforeCreate");
+  },
+  created() {
+    //Se declara como si fuera un metodo
+    console.log("created");
+  },
+  beforeMount() {
+    // mas usados, ya que ya esta visualmente en el DOM
+    console.log("beforeMount");
+  },
+  mounted() {
+    this.obtenerPathVariable()
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate");
+  },
+  updated() {
+    console.log("updated");
+  },
+  beforeUnmount() {},
+
+  unmounted() {
+    console.log("unmounted");
   }
 };
 </script>
