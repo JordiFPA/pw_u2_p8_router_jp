@@ -49,6 +49,11 @@ const routes = [ //Arreglo de rutas, donde cada una es un objeto, con 3 atribut
     name: 'preguntaView',
     component: () => import(/* webpackChunkName: "Perrito" */ '../views/PreguntaView.vue')
   },
+  {
+    path: '/pokemon',
+    name: 'PokemonView',
+    component: () => import(/* webpackChunkName: "Pokemon" */ '../views/PokemonView')
+  },
 ]
 
 const router = createRouter({

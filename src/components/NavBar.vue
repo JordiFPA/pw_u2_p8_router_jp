@@ -7,6 +7,7 @@
       <router-link to="/perrito">Perrito</router-link>|
       <router-link to="/vehiculo">Vehiculo</router-link>|
       <router-link to="/taller/pregunta">Pregunta</router-link>|
+      <router-link to="/pokemon">Pokemon</router-link>|
     </nav>
   </div>
 </template>
