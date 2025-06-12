@@ -47,3 +47,7 @@ export const consumirPokemOFachada = async (id) => {
 export const obtenerOpcionesFachada = async (longitud) => {
     return await obtenerOpciones(longitud);
 }
+
+export function obtenerAleatorioFachada(min, max) {
+    return obtenerAleatorio(min,max);
+}

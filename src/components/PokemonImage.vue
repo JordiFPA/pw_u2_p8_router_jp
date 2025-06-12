@@ -1,18 +1,27 @@
 <template>
+  {{ mensaje1 }}
   <div class="image-container">
     <img
       :src="imagenFuente"
       alt="No se encuentra la imagen"
       class="ocultar"
-      v-if="!mostrar"
+      v-if="!mostrarImagen"
     />
-
-    <img :src="imagenFuente" alt="No se encuentra la imagen" v-if="mostrar" />
+    <img
+      :src="imagenFuente"
+      alt="No se encuentra la imagen"
+      v-if="mostrarImagen"
+    />
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      mensaje1: "mensaje1",
+    };
+  },
   props: {
     PokemonId: {
       type: Number,
@@ -24,11 +33,6 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      mostrar: this.mostrarImagen,
-    };
-  },
   computed: {
     imagenFuente() {
       return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${this.PokemonId}.svg`;
@@ -36,7 +40,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 img {
