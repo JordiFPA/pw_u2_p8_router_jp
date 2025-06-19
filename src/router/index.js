@@ -54,6 +54,13 @@ const routes = [ //Arreglo de rutas, donde cada una es un objeto, con 3 atribut
     name: 'PokemonView',
     component: () => import(/* webpackChunkName: "Pokemon" */ '../views/PokemonView')
   },
+
+ {
+    path: '/responsivo',
+    name: 'ResponsivoView',
+    component: () => import(/* webpackChunkName: "Pokemon" */ '../views/ResponsivoView.vue')
+  },
+
 ]
 
 const router = createRouter({
